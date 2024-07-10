@@ -38,6 +38,10 @@ SELECT * FROM document_form_v6
 
 upload_customer_df = pd.read_sql(query, engine)
 
+# เลือก 10% ของข้อมูล
+num_rows = int(len(upload_customer_df) * 0.1)
+customer_df = upload_customer_df.head(num_rows).reset_index(drop=True)
+
 start_row = 9
 for idx, row in upload_customer_df.iterrows():
     uc_created_date = row['uc_created_date'].replace(tzinfo=None)

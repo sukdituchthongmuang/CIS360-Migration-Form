@@ -38,6 +38,10 @@ SELECT * FROM contact_form_v6
 
 customer_df = pd.read_sql(query, engine)
 
+# เลือก 10% ของข้อมูล
+num_rows = int(len(customer_df) * 0.1)
+customer_df = customer_df.head(num_rows).reset_index(drop=True)
+
 # เพิ่มข้อมูลจากฐานข้อมูลลงใน Excel ตั้งแต่แถวที่ 9
 start_row = 9
 for idx, row in customer_df.iterrows():

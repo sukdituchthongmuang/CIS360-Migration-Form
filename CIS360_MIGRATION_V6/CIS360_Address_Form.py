@@ -38,6 +38,10 @@ SELECT * FROM address_form_v6
 
 customer_df = pd.read_sql(query, engine)
 
+# เลือก 10% ของข้อมูล
+num_rows = int(len(customer_df) * 0.1)
+customer_df = customer_df.head(num_rows).reset_index(drop=True)
+
 # เพิ่มข้อมูลจากฐานข้อมูลลงใน Excel ตั้งแต่แถวที่ 9
 start_row = 9
 for idx, row in customer_df.iterrows():
@@ -45,35 +49,35 @@ for idx, row in customer_df.iterrows():
     cus_updated_date = row['ca_updated_date'].replace(tzinfo=None)
     cus_tax_no = str(row['cus_tax_no']) if row['cus_tax_no'] else ''
     
-    ws.cell(row=start_row + idx, column=3, value="ALLKONS_AMRP").border = thin_border
-    ws.cell(row=start_row + idx, column=4, value=str(row['ca_id'])).border = thin_border
-    ws.cell(row=start_row + idx, column=5, value="ALLKONS_AMRP").border = thin_border
-    ws.cell(row=start_row + idx, column=6, value="OFFICE").border = thin_border
-    ws.cell(row=start_row + idx, column=7, value=str(row['ca_cus_id'])).border = thin_border
-    ws.cell(row=start_row + idx, column=9, value=str(row['ctl_name'])).border = thin_border
-    ws.cell(row=start_row + idx, column=10, value=str(row['ca_name'])).border = thin_border
-    ws.cell(row=start_row + idx, column=11, value=str(row['ca_detail_address'])).border = thin_border
-    ws.cell(row=start_row + idx, column=13, value=str(row['cus_tel'])).border = thin_border
-    ws.cell(row=start_row + idx, column=15, value=str(row['cus_branch'])).border = thin_border
-    ws.cell(row=start_row + idx, column=16, value=str(row['ct_name'])).border = thin_border
-    ws.cell(row=start_row + idx, column=20, value=str(row['cus_tax_no'])).border = thin_border
-    ws.cell(row=start_row + idx, column=21, value=str(row['ca_detail_address'])).border = thin_border
-    ws.cell(row=start_row + idx, column=23, value=str(row['ca_loc_province'])).border = thin_border
-    ws.cell(row=start_row + idx, column=24, value=str(row['ca_loc_district'])).border = thin_border
-    ws.cell(row=start_row + idx, column=25, value=str(row['ca_loc_data'])).border = thin_border
-    ws.cell(row=start_row + idx, column=27, value=str(row['ca_postcode'])).border = thin_border
-    ws.cell(row=start_row + idx, column=28, value=str(row['ca_loc_province_name'])).border = thin_border
-    ws.cell(row=start_row + idx, column=29, value=str(row['ca_loc_district_name'])).border = thin_border
-    ws.cell(row=start_row + idx, column=30, value=str(row['ca_loc_sub_district_name'])).border = thin_border
-    ws.cell(row=start_row + idx, column=31, value=str(row['ca_postcode'])).border = thin_border
-    ws.cell(row=start_row + idx, column=32, value=str(row['ca_latitude'])).border = thin_border
-    ws.cell(row=start_row + idx, column=33, value=str(row['ca_longitude'])).border = thin_border
-    ws.cell(row=start_row + idx, column=34, value="TRUE").border = thin_border
-    ws.cell(row=start_row + idx, column=35, value="TRUE").border = thin_border
-    ws.cell(row=start_row + idx, column=36, value=cus_created_date).border = thin_border
-    ws.cell(row=start_row + idx, column=38, value=cus_updated_date).border = thin_border
+    ws.cell(row=start_row + idx, column=3, value="ALLKONS_AMRP").border = thin_border # platform_code
+    ws.cell(row=start_row + idx, column=4, value=str(row['ca_id'])).border = thin_border # reference_id
+    ws.cell(row=start_row + idx, column=5, value="ALLKONS_AMRP").border = thin_border # platform_owner_reference_id
+    ws.cell(row=start_row + idx, column=6, value="OFFICE").border = thin_border # customer_profile_owner_reference_id
+    ws.cell(row=start_row + idx, column=7, value=str(row['ca_cus_id'])).border = thin_border # owner_reference_id
+    ws.cell(row=start_row + idx, column=9, value=str(row['ctl_name'])).border = thin_border # address_type
+    ws.cell(row=start_row + idx, column=10, value=str(row['ca_name'])).border = thin_border # address_name
+    ws.cell(row=start_row + idx, column=11, value=str(row['ca_detail_address'])).border = thin_border # address_detail
+    ws.cell(row=start_row + idx, column=13, value=str(row['cus_tel'])).border = thin_border # contact_phone_number
+    ws.cell(row=start_row + idx, column=15, value=str(row['cus_branch'])).border = thin_border # branch
+    ws.cell(row=start_row + idx, column=16, value=str(row['ct_name'])).border = thin_border # tax_invoice_juristic_type
+    ws.cell(row=start_row + idx, column=20, value=str(row['cus_tax_no'])).border = thin_border # tax_invoice_tax_id
+    ws.cell(row=start_row + idx, column=21, value=str(row['ca_detail_address'])).border = thin_border # address_info
+    ws.cell(row=start_row + idx, column=23, value=str(row['ca_loc_province'])).border = thin_border # province
+    ws.cell(row=start_row + idx, column=24, value=str(row['ca_loc_district'])).border = thin_border # district
+    ws.cell(row=start_row + idx, column=25, value=str(row['ca_loc_data'])).border = thin_border # sub_district
+    ws.cell(row=start_row + idx, column=26, value=str(row['ca_postcode'])).border = thin_border # zipcode
+    ws.cell(row=start_row + idx, column=28, value=str(row['ca_loc_province_name'])).border = thin_border # country_name
+    ws.cell(row=start_row + idx, column=29, value=str(row['ca_loc_district_name'])).border = thin_border # district_name
+    ws.cell(row=start_row + idx, column=30, value=str(row['ca_loc_sub_district_name'])).border = thin_border # sub_district_name
+    ws.cell(row=start_row + idx, column=31, value=str(row['ca_postcode'])).border = thin_border # zipcode_name
+    ws.cell(row=start_row + idx, column=32, value=str(row['ca_latitude'])).border = thin_border # latitude
+    ws.cell(row=start_row + idx, column=33, value=str(row['ca_longitude'])).border = thin_border # longitude
+    ws.cell(row=start_row + idx, column=34, value="TRUE").border = thin_border # is_default
+    ws.cell(row=start_row + idx, column=35, value="TRUE").border = thin_border # active_status
+    ws.cell(row=start_row + idx, column=36, value=cus_created_date).border = thin_border # create_at
+    ws.cell(row=start_row + idx, column=38, value=cus_updated_date).border = thin_border # update_at
 
-    if ws.cell(row=start_row + idx, column=9).value == 'Delivery': # juristic_type
+    if ws.cell(row=start_row + idx, column=9).value == 'Delivery': # address_type
         ws.cell(row=start_row + idx, column=9, value="S").border = thin_border 
     elif ws.cell(row=start_row + idx, column=9).value == 'Invoice':
         ws.cell(row=start_row + idx, column=9, value="T").border = thin_border
