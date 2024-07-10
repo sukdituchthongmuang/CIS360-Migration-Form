@@ -54,18 +54,23 @@ for idx, row in upload_customer_df.iterrows():
     # ตัดข้อมูลที่อยู่หลังสุดจนถึงเครื่องหมาย /
     main_path2, _, file_name = main_path.rpartition('/')
     
-    ws.cell(row=start_row + idx, column=3, value="ALLKONS_AMRP").border = thin_border
-    ws.cell(row=start_row + idx, column=4, value="ALLKONS_AMRP").border = thin_border
-    ws.cell(row=start_row + idx, column=5, value="OFFICE").border = thin_border
-    ws.cell(row=start_row + idx, column=6, value=str(row['uc_cus_id'])).border = thin_border
-    ws.cell(row=start_row + idx, column=7, value="IMAGE_PROFILE").border = thin_border
-    ws.cell(row=start_row + idx, column=8, value=main_path2).border = thin_border
-    ws.cell(row=start_row + idx, column=9, value=file_name).border = thin_border
-    ws.cell(row=start_row + idx, column=10, value="."+remainder).border = thin_border
-    ws.cell(row=start_row + idx, column=12, value=str(row['uc_is_use'])).border = thin_border
-    ws.cell(row=start_row + idx, column=13, value=str(row['uc_created_date'])).border = thin_border
-    ws.cell(row=start_row + idx, column=15, value=str(row['uc_updated_date'])).border = thin_border
+    ws.cell(row=start_row + idx, column=3, value="ALLKONS_AMRP").border = thin_border # platform_code
+    ws.cell(row=start_row + idx, column=4, value="ALLKONS_AMRP").border = thin_border # platform_owner_reference_id
+    ws.cell(row=start_row + idx, column=5, value="OFFICE").border = thin_border # customer_profile_owner_reference_id
+    ws.cell(row=start_row + idx, column=6, value=str(row['uc_cus_id'])).border = thin_border # owner_reference_id
+    ws.cell(row=start_row + idx, column=7, value="IMAGE_PROFILE").border = thin_border # document_import_type
+    ws.cell(row=start_row + idx, column=8, value=main_path2).border = thin_border # document_folder_path
+    ws.cell(row=start_row + idx, column=9, value=file_name).border = thin_border # document_name
+    ws.cell(row=start_row + idx, column=10, value="."+remainder).border = thin_border # file_extension
+    ws.cell(row=start_row + idx, column=12, value=str(row['uc_is_use'])).border = thin_border # active_status
+    ws.cell(row=start_row + idx, column=13, value=str(row['uc_created_date'])).border = thin_border # create_at
+    ws.cell(row=start_row + idx, column=15, value=str(row['uc_updated_date'])).border = thin_border # update_at
 
+    if ws.cell(row=start_row + idx, column=12).value == 'True': # active_status
+        ws.cell(row=start_row + idx, column=9, value="TRUE").border = thin_border 
+    else :
+        ws.cell(row=start_row + idx, column=9, value="FALSE").border = thin_border
+    
 # เพิ่มเส้นกรอบให้กับเซลล์ที่ไม่ได้เติมค่า
 for row in range(start_row, start_row + len(upload_customer_df)):
     for col in range(1, 18):

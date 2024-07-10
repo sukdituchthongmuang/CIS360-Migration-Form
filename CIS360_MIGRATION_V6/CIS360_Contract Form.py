@@ -48,17 +48,17 @@ for idx, row in customer_df.iterrows():
     cus_created_date = row['cus_created_date'].replace(tzinfo=None)
     cus_updated_date = row['cus_updated_date'].replace(tzinfo=None)
     
-    ws.cell(row=start_row + idx, column=3, value="ALLKONS_AMRP").border = thin_border
-    ws.cell(row=start_row + idx, column=4, value="ALLKONS_AMRP").border = thin_border
-    ws.cell(row=start_row + idx, column=5, value="OFFICE").border = thin_border
-    ws.cell(row=start_row + idx, column=6, value=str(row['cus_id'])).border = thin_border
-    ws.cell(row=start_row + idx, column=7, value="PHONE").border = thin_border
-    ws.cell(row=start_row + idx, column=9, value=str(row['cus_tel'])).border = thin_border
-    ws.cell(row=start_row + idx, column=15, value="TRUE").border = thin_border
-    ws.cell(row=start_row + idx, column=16, value="TRUE").border = thin_border
-    ws.cell(row=start_row + idx, column=17, value="TRUE").border = thin_border
-    ws.cell(row=start_row + idx, column=18, value=str(row['cus_created_date'])).border = thin_border
-    ws.cell(row=start_row + idx, column=20, value=str(row['cus_updated_date'])).border = thin_border
+    ws.cell(row=start_row + idx, column=3, value="ALLKONS_AMRP").border = thin_border # platform_code
+    ws.cell(row=start_row + idx, column=4, value="ALLKONS_AMRP").border = thin_border # platform_owner_reference_id
+    ws.cell(row=start_row + idx, column=5, value="OFFICE").border = thin_border # customer_profile_owner_reference_id
+    ws.cell(row=start_row + idx, column=6, value=str(row['cus_id'])).border = thin_border # owner_reference_id
+    ws.cell(row=start_row + idx, column=7, value="PHONE").border = thin_border # contact_type
+    ws.cell(row=start_row + idx, column=9, value=str(row['cus_tel'])).border = thin_border # contact
+    ws.cell(row=start_row + idx, column=15, value="TRUE").border = thin_border # is_verify
+    ws.cell(row=start_row + idx, column=16, value="TRUE").border = thin_border # is_default
+    ws.cell(row=start_row + idx, column=17, value="TRUE").border = thin_border # active_status
+    ws.cell(row=start_row + idx, column=18, value=str(row['cus_created_date'])).border = thin_border # create_at
+    ws.cell(row=start_row + idx, column=20, value=str(row['cus_updated_date'])).border = thin_border # update_at
     
 # เพิ่มเส้นกรอบให้กับเซลล์ที่ไม่ได้เติมค่า
 for row in range(start_row, start_row + len(customer_df)):
